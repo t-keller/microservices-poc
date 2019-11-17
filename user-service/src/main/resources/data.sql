@@ -1,2 +1,2 @@
-insert into users (username) values ('Thomas');
-insert into users (username) values ('Alex');
+insert into users (firstname, lastname) values ('Thomas', 'Toto');
+insert into users (firstname, lastname) values ('Alex', 'Tata');
