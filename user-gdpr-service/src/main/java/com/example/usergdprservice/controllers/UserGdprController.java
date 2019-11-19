@@ -18,50 +18,22 @@ public class UserGdprController {
 	@Autowired
 	RestTemplate restTemplate;
 
-	@GetMapping(value = {"/consents-full"})
+	@GetMapping(value = { "/consents-full" })
 	public Consent[] getFullConsents() {
-		User[] users = restTemplate.getForObject("http://127.0.0.1:8080/mocks/users", User[].class);
-		Consent[] consents = restTemplate.getForObject("http://127.0.0.1:8080/mocks/consents", Consent[].class);
+		User[] users = restTemplate.getForObject("http://127.0.0.1:8080/users", User[].class);
+		Consent[] consents = restTemplate.getForObject("http://127.0.0.1:8081/consents", Consent[].class);
 
-		//		// Opt1. Standard double Java for
-		//		for (Consent consent : consents) {
-		//			String username = null;
-		//
-		//			for (User user : users) {
-		//				if (user.getId().equals(consent.getPersonId())) {
-		//					username = user.getUsername();
-		//					break;
-		//				}
-		//			}
-		//
-		//			consent.setUsername(username);
-		//		}
-
-		//		// Opt2. Standard Java for and stream to find the username
-		//		for (Consent consent : consents) {
-		//			List<User> userList = new ArrayList(Arrays.asList(users));
-		//			
-		//			String username = userList.stream()
-		//				.filter(user -> user.getId().equals(consent.getPersonId()))
-		//				.findAny()
-		//				.map(User::getUsername)
-		//				.orElse(null);
-		//			
-		//			consent.setUsername(username);
-		//		}
-
-		// Opt3. Full Java8 streams
 		List<User> userList = new ArrayList<>(Arrays.asList(users));
 		List<Consent> consentList = new ArrayList<>(Arrays.asList(consents));
 
-		consentList.stream()
-			.forEach(consent ->
-				consent.setUsername(userList.stream()
-						.filter(user -> user.getId().equals(consent.getPersonId()))
-						.findAny()
-						.map(User::getUsername)
-						.orElse(null)
-						));
+		for (Consent consent : consentList) {
+
+			User relatedUser = userList.stream().filter(user -> user.getId().equals(consent.getPersonId())).findAny()
+					.orElse(null);
+
+			consent.setFirstname(relatedUser.getFirstname());
+			consent.setLastname(relatedUser.getLastname());
+		}
 
 		return consents;
 	}

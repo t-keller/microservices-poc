@@ -3,7 +3,8 @@ package com.example.usergdprservice.dto;
 public class User {
 
 	private String id;
-	private String username;
+	private String firstname;
+	private String lastname;
 
 	public String getId() {
 		return id;
@@ -13,11 +14,19 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 }
