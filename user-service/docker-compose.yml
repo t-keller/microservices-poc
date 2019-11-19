@@ -1,8 +1,8 @@
 version: '3'
 services:
-  db:
+  user-db:
     image: postgres
-  api:
+  user-api:
     build: .
     ports:
       - "8080:8080"
