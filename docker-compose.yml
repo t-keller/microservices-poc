@@ -1,0 +1,15 @@
+version: '3'
+services:
+  user-db:
+    image: postgres
+  gdpr-db:
+    image: postgres
+  user-service:
+    build: ./user-service
+    ports:
+      - "8080:8080"
+  gdpr-service:
+    build: ./gdpr-service
+    ports:
+      - "8081:8080"
+      
