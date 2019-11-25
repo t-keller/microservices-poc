@@ -14,10 +14,50 @@ This REST API is responsible for the CRUD on two entities:
 
 The reference used to identity a user is coming from the user-service.
 
+This API also broadcasts events for consent creation, i.e.
+
+```javascript
+{
+  "type": "CREATE",
+  "consent": {
+    "id": 4,
+    "personId": "1",
+    "treatment": {
+      "id": 1
+    },
+    "optin": false
+  }
+}
+```
+
 ### user-service
 
 This REST API is responsible for the CRUD on a user database:
 1. /users: to expose the users
+
+This API also broadcasts events for user creation, i.e.
+
+```javascript
+{
+  "type": "CREATE",
+  "user": {
+    "id": 1,
+    "firstname": "Thomas",
+    "lastname": "K"
+  }
+}
+```
+
+... and deletion:
+
+```javascript
+{
+  "type": "DELETE",
+  "user": {
+    "id": 1
+  }
+}
+```
 
 ### user-gdpr-service
 
