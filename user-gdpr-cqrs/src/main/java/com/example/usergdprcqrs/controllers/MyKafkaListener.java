@@ -16,7 +16,7 @@ public class MyKafkaListener {
 	@Autowired
 	UserRepository userRepository;
 
-	@KafkaListener(topics = "test")
+	@KafkaListener(topics = "${app.topics.user}")
 	public void processMessage(@Payload String payload) {
 		Gson gson = new Gson();
 		UserEvent userEvent = gson.fromJson(payload, UserEvent.class);
