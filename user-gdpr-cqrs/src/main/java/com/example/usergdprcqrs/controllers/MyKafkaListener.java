@@ -22,7 +22,7 @@ public class MyKafkaListener {
 		UserEvent userEvent = gson.fromJson(payload, UserEvent.class);
 
 		if (userEvent.getType() == UserEventType.CREATE) {
-			System.out.println("Saving user: " + userEvent.getUser());
+			System.out.println("Saving user: " + userEvent.getUser().getId());
 			userRepository.save(userEvent.getUser());
 		}
 	}
