@@ -24,6 +24,9 @@ public class MyKafkaListener {
 		if (userEvent.getType() == UserEventType.CREATE) {
 			System.out.println("Saving user: " + userEvent.getUser().getId());
 			userRepository.save(userEvent.getUser());
+		} else if (userEvent.getType() == UserEventType.DELETE) {
+			System.out.println("Deleting user: " + userEvent.getUser().getId());
+			userRepository.deleteById(userEvent.getUser().getId());
 		}
 	}
 }
