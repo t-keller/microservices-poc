@@ -3,6 +3,7 @@ package com.example.userservice.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -34,13 +35,16 @@ public class UserController {
 	@Autowired
 	KafkaTemplate<String, User> kafkaTemplate;
 
+	@Value("${app.topics.user}")
+	private String userTopicName;
+
 	@PostMapping(path = "users")
 	public ResponseEntity<User> createUser(@RequestBody final User user) {
 		User userCreated = userRepository.save(user);
 
 		UserEvent userEvent = UserEvent.of(UserEventType.CREATE, userCreated);
 
-		Message<UserEvent> message = MessageBuilder.withPayload(userEvent).setHeader(KafkaHeaders.TOPIC, "test")
+		Message<UserEvent> message = MessageBuilder.withPayload(userEvent).setHeader(KafkaHeaders.TOPIC, userTopicName)
 				.build();
 
 		kafkaTemplate.send(message);
@@ -67,7 +71,7 @@ public class UserController {
 
 		UserEvent userEvent = UserEvent.of(UserEventType.DELETE, user);
 
-		Message<UserEvent> message = MessageBuilder.withPayload(userEvent).setHeader(KafkaHeaders.TOPIC, "test")
+		Message<UserEvent> message = MessageBuilder.withPayload(userEvent).setHeader(KafkaHeaders.TOPIC, userTopicName)
 				.build();
 
 		kafkaTemplate.send(message);
