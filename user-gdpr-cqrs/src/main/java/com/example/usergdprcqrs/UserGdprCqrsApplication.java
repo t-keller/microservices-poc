@@ -12,12 +12,21 @@ public class UserGdprCqrsApplication {
 	@Value("${app.topics.user}")
 	private String userTopicName;
 
+	@Value("${app.topics.consent}")
+	private String consentTopicName;
+
 	public static void main(String[] args) {
 		SpringApplication.run(UserGdprCqrsApplication.class, args);
 	}
 
 	@Bean
-	public NewTopic topic() {
+	public NewTopic userTopic() {
 		return new NewTopic(userTopicName, 1, (short) 1);
 	}
+
+	@Bean
+	public NewTopic consentTopic() {
+		return new NewTopic(consentTopicName, 1, (short) 1);
+	}
+
 }
