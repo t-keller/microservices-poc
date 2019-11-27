@@ -1,14 +1,19 @@
 package com.example.usergdprcqrs.controllers;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+import com.example.usergdprcqrs.dto.ConsentDto;
 import com.example.usergdprcqrs.dto.ConsentEvent;
 import com.example.usergdprcqrs.dto.ConsentEvent.ConsentEventType;
 import com.example.usergdprcqrs.dto.UserEvent;
 import com.example.usergdprcqrs.dto.UserEvent.UserEventType;
+import com.example.usergdprcqrs.entities.Consent;
+import com.example.usergdprcqrs.entities.User;
 import com.example.usergdprcqrs.repositories.ConsentRepository;
 import com.example.usergdprcqrs.repositories.UserRepository;
 import com.google.gson.Gson;
@@ -43,7 +48,19 @@ public class MyKafkaListener {
 
 		if (consentEvent.getType() == ConsentEventType.CREATE) {
 			System.out.println("Saving consent: " + consentEvent.getConsent().getId());
-			consentRepository.save(consentEvent.getConsent());
+			consentRepository.save(convertConsentDtoToEntity(consentEvent.getConsent()));
 		}
+	}
+
+	private Consent convertConsentDtoToEntity(ConsentDto consentDto) {
+		Consent consent = new Consent();
+		consent.setId(consentDto.getId());
+		consent.setOptin(consentDto.isOptin());
+		consent.setTreatment(consentDto.getTreatment());
+
+		Optional<User> person = userRepository.findById(Integer.valueOf(consentDto.getPersonId()));
+		consent.setPerson(person.orElseThrow());
+
+		return consent;
 	}
 }

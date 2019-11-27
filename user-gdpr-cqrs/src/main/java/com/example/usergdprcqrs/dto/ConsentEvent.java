@@ -1,7 +1,5 @@
 package com.example.usergdprcqrs.dto;
 
-import com.example.usergdprcqrs.entities.Consent;
-
 public class ConsentEvent {
 
 	public enum ConsentEventType {
@@ -9,13 +7,13 @@ public class ConsentEvent {
 	}
 
 	private ConsentEventType type;
-	private Consent consent;
+	private ConsentDto consent;
 
-	public static ConsentEvent of(ConsentEventType type, Consent consent) {
+	public static ConsentEvent of(ConsentEventType type, ConsentDto consent) {
 		return new ConsentEvent(type, consent);
 	}
 
-	private ConsentEvent(ConsentEventType type, Consent consent) {
+	private ConsentEvent(ConsentEventType type, ConsentDto consent) {
 		this.setType(type);
 		this.setConsent(consent);
 	}
@@ -28,11 +26,11 @@ public class ConsentEvent {
 		this.type = type;
 	}
 
-	public Consent getConsent() {
+	public ConsentDto getConsent() {
 		return consent;
 	}
 
-	public void setConsent(Consent consent) {
+	public void setConsent(ConsentDto consent) {
 		this.consent = consent;
 	}
 }

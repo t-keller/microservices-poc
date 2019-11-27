@@ -13,7 +13,8 @@ public class Consent {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private String personId;
+	@ManyToOne
+	private User person;
 
 	@ManyToOne
 	private Treatment treatment;
@@ -31,12 +32,12 @@ public class Consent {
 		this.id = id;
 	}
 
-	public String getPersonId() {
-		return personId;
+	public User getPerson() {
+		return person;
 	}
 
-	public void setPersonId(String personId) {
-		this.personId = personId;
+	public void setPerson(User person) {
+		this.person = person;
 	}
 
 	public Treatment getTreatment() {
