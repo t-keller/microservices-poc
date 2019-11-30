@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The idea behind this project is to poc an integrated microservice architecture using as many pattern as possible (CQRS, event-driven architecture...)
+The idea behind this project is to PoC an integrated microservice architecture using common patterns (API aggregation, event-driven architecture...)
 
 ## Components
 
@@ -68,8 +68,33 @@ This API doesn't have a dedicated datastore but implement a "facade pattern" to 
 
 Moreover, it implements a dedicated route (/consents-full) to enrich the consents with the username (enrichment/aggregatation pattern)
 
+### user-gdpr-cqrs
+
+This app subscribes to the topics "consent" and "user" to replicate locally the objects and expose an aggregated route:
+1. /consents 
+
+## Launch the PoC
+
+First step is to build the services:
+
+```
+mvn clean package -DskipTests
+```
+
+Remove the potential previous created containers:
+
+```
+sudo docker-compose rm -f
+```
+
+And then build & launch the docker-compose:
+
+```
+sudo docker-compose up --build
+```
+
 ## To-do
 
-1. Finish the CQRS implementation (proper event objects, replication)
+1. Implement an OAuth2 security scheme
 2. Add support for Lombok
-3. Implement a OAuth2 security scheme
+3. Fix the startup error of "gdpr-service"
