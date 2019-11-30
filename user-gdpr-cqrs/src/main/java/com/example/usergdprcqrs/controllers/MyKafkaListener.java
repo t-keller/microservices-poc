@@ -67,7 +67,9 @@ public class MyKafkaListener {
 		consent.setTreatment(consentDto.getTreatment());
 
 		Optional<User> person = userRepository.findById(Integer.valueOf(consentDto.getPersonId()));
-		consent.setPerson(person.orElseThrow());
+		logger.info("Looking for the user: {}", consentDto.getPersonId());
+
+		consent.setPerson(person.get());
 
 		return consent;
 	}
