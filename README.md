@@ -78,7 +78,7 @@ This app subscribes to the topics "consent" and "user" to replicate locally the 
 First step is to build the services:
 
 ```
-mvn clean package -DskipTests
+mvn clean package
 ```
 
 Remove the potential previous created containers:
