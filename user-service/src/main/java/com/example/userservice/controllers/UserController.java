@@ -2,6 +2,8 @@ package com.example.userservice.controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,8 @@ import com.example.userservice.repositories.UserRepository;
 @RestController
 public class UserController {
 
+	Logger logger = LoggerFactory.getLogger(UserController.class);
+
 	@Autowired
 	private UserRepository userRepository;
 
@@ -46,6 +50,8 @@ public class UserController {
 
 		Message<UserEvent> message = MessageBuilder.withPayload(userEvent).setHeader(KafkaHeaders.TOPIC, userTopicName)
 				.build();
+
+		logger.info("Broadcasting event: {}", message);
 
 		kafkaTemplate.send(message);
 
@@ -73,6 +79,8 @@ public class UserController {
 
 		Message<UserEvent> message = MessageBuilder.withPayload(userEvent).setHeader(KafkaHeaders.TOPIC, userTopicName)
 				.build();
+
+		logger.info("Broadcasting event: {}", message);
 
 		kafkaTemplate.send(message);
 

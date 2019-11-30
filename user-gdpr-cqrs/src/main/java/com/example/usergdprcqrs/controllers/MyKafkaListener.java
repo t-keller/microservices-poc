@@ -2,6 +2,8 @@ package com.example.usergdprcqrs.controllers;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -21,6 +23,8 @@ import com.google.gson.Gson;
 @Component
 public class MyKafkaListener {
 
+	Logger logger = LoggerFactory.getLogger(MyKafkaListener.class);
+
 	@Autowired
 	UserRepository userRepository;
 
@@ -29,6 +33,8 @@ public class MyKafkaListener {
 
 	@KafkaListener(topics = "${app.topics.user}")
 	public void processUserMessage(@Payload String payload) {
+		logger.info("Receiving event: {}", payload);
+
 		Gson gson = new Gson();
 		UserEvent userEvent = gson.fromJson(payload, UserEvent.class);
 
@@ -43,6 +49,8 @@ public class MyKafkaListener {
 
 	@KafkaListener(topics = "${app.topics.consent}")
 	public void processConsentMessage(@Payload String payload) {
+		logger.info("Receiving event: {}", payload);
+
 		Gson gson = new Gson();
 		ConsentEvent consentEvent = gson.fromJson(payload, ConsentEvent.class);
 
