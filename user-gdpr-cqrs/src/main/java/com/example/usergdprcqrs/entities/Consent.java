@@ -4,7 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import lombok.Data;
+
 @Entity(name = "consents")
+@Data
 public class Consent {
 
 	@Id
@@ -17,39 +20,4 @@ public class Consent {
 	private Treatment treatment;
 
 	private boolean optin;
-
-	public Consent() {
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public User getPerson() {
-		return person;
-	}
-
-	public void setPerson(User person) {
-		this.person = person;
-	}
-
-	public Treatment getTreatment() {
-		return treatment;
-	}
-
-	public void setTreatment(Treatment treatment) {
-		this.treatment = treatment;
-	}
-
-	public boolean isOptin() {
-		return optin;
-	}
-
-	public void setOptin(boolean optin) {
-		this.optin = optin;
-	}
 }
