@@ -95,6 +95,4 @@ sudo docker-compose up --build
 
 ## To-do
 
-1. Implement an OAuth2 security scheme
-2. Add support for Lombok
-3. Fix the startup error of "gdpr-service"
+1. Fix the startup error of "gdpr-service"
