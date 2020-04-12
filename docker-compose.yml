@@ -30,3 +30,7 @@ services:
     build: ./user-gdpr-cqrs
     ports:
       - "8083:8080"
+  eureka-server:
+    build: ./eureka-server
+    ports:
+      - "8761:8761"
