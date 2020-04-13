@@ -44,7 +44,7 @@ public class ConsentController {
 
 	@GetMapping(path = "consents/{id}")
 	public Consent getConsent(@PathVariable("id") final int id) {
-		return consentRepository.findById(id).orElseThrow();
+		return consentRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("consent not found"));
 	}
 
 	@PostMapping(path = "consents")

@@ -65,7 +65,7 @@ public class UserController {
 
 	@GetMapping(path = "users/{id}")
 	public User getUser(@PathVariable("id") final int id) {
-		return userRepository.findById(id).orElseThrow();
+		return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("user not found"));
 	}
 
 	@DeleteMapping(path = "users/{id}")
