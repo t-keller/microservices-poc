@@ -93,6 +93,3 @@ And then build & launch the docker-compose:
 sudo docker-compose up --build
 ```
 
-## To-do
-
-1. Fix the startup error of "gdpr-service"
