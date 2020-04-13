@@ -34,3 +34,7 @@ services:
     build: ./eureka-server
     ports:
       - "8761:8761"
+  admin-server:
+    build: ./admin-server
+    ports:
+      - "9080:8080"
