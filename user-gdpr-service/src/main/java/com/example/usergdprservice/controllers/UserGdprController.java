@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -18,10 +19,16 @@ public class UserGdprController {
 	@Autowired
 	RestTemplate restTemplate;
 
+	@Value("${zuul.routes.users.url}")
+	private String usersURL;
+
+	@Value("${zuul.routes.consents.url}")
+	private String consentsURL;
+
 	@GetMapping(value = { "/consents-full" })
 	public Consent[] getFullConsents() {
-		User[] users = restTemplate.getForObject("http://127.0.0.1:8080/users", User[].class);
-		Consent[] consents = restTemplate.getForObject("http://127.0.0.1:8081/consents", Consent[].class);
+		User[] users = restTemplate.getForObject(usersURL, User[].class);
+		Consent[] consents = restTemplate.getForObject(consentsURL, Consent[].class);
 
 		List<User> userList = new ArrayList<>(Arrays.asList(users));
 		List<Consent> consentList = new ArrayList<>(Arrays.asList(consents));
