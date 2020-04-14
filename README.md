@@ -2,7 +2,18 @@
 
 ## Introduction
 
-The idea behind this project is to PoC an integrated microservice architecture using common patterns (API aggregation, event-driven architecture...)
+The idea behind this project is to PoC an integrated microservice architecture using common patterns:
+* [Database per Service pattern](https://microservices.io/patterns/data/database-per-service.html)
+* Containerized (Docker and Docker Compose)
+* [API Gateway](https://microservices.io/patterns/apigateway.html)/Façace pattern/[API composition](https://microservices.io/patterns/data/api-composition.html) (implemented with Spring Zuul)
+* Publish/Subscribe pattern (based on events, implemented with Kafka)
+* [CQRS pattern](https://microservices.io/patterns/data/cqrs.html)
+* Service Discovery (implemented with Eureka)
+* Observability (Spring Boot Admin/Actuator)
+
+## Components schema
+
+![schema](https://raw.githubusercontent.com/t-keller/microservices-poc/master/schema/schema.png)
 
 ## Components
 
@@ -72,6 +83,15 @@ Moreover, it implements a dedicated route (/consents-full) to enrich the consent
 
 This app subscribes to the topics "consent" and "user" to replicate locally the objects and expose an aggregated route:
 1. /consents 
+
+### eureka-server
+
+This app implements a service registry thanks to Eureka. The services periodically register with this app in order to maintain an up-to-date service registry.
+
+### admin-server
+
+This app exposes an admin console (Spring Boot Admin) in order to observe the microservices (metrics, configuration etc)
+The services are discovered thanks to Eureka
 
 ## Launch the PoC
 
