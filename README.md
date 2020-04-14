@@ -5,7 +5,7 @@
 The idea behind this project is to PoC an integrated microservice architecture using common patterns:
 * [Database per Service pattern](https://microservices.io/patterns/data/database-per-service.html)
 * Containerized (Docker and Docker Compose)
-* [API Gateway](https://microservices.io/patterns/apigateway.html)/Façace pattern/[API composition](https://microservices.io/patterns/data/api-composition.html) (implemented with Spring Zuul)
+* [API Gateway](https://microservices.io/patterns/apigateway.html)/Façade pattern/[API composition](https://microservices.io/patterns/data/api-composition.html) (implemented with Spring Zuul)
 * Publish/Subscribe pattern (based on events, implemented with Kafka)
 * [CQRS pattern](https://microservices.io/patterns/data/cqrs.html)
 * Service Discovery (implemented with Eureka)
